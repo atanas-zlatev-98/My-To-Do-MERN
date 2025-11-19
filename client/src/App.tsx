@@ -1,14 +1,18 @@
-import './App.css'
-import { Button } from './components/ui/button'
-
+import "./App.css";
+import { Routes, Route } from "react-router";
+import Today from "./components/sections/today/Today";
+import Layout from "./components/main/Layout";
 function App() {
-
   return (
-    <>
-     <h1>React To-Do App MERN stack</h1>
-     <Button variant={'outline'}>Button Add</Button>
-    </>
-  )
+    <div className="main">
+      <Layout>
+        <Routes>
+          {/* <Route path="/" element={<MainPage/>}></Route> */}
+          <Route path="/today" element={<Today />}></Route>
+        </Routes>
+      </Layout>
+    </div>
+  );
 }
 
-export default App
+export default App;
