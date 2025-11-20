@@ -1,3 +1,4 @@
+import { createTask } from "@/api/task-api";
 import { initialTaskValues } from "@/components/constants/constants";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
@@ -17,10 +18,22 @@ const CreateTaskForm = () => {
   const [date,setDate] = useState<Date | undefined>(undefined);
   const [formValues,setFormValues] = useState<TaskFormValues>(initialTaskValues);
 
-  const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
+  const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        setFormValues(initialTaskValues);
-        setDate(undefined);
+
+        try{ 
+          
+          const response = await createTask(formValues);
+
+          if(response){
+            setFormValues(initialTaskValues);
+            setDate(undefined);
+          }
+
+        }catch(err){
+          console.log(err);
+        }
+
   };
 
   const handleChange = (name: keyof TaskFormValues,value:string | Date | undefined) =>{

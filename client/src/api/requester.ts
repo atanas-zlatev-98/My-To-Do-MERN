@@ -3,7 +3,7 @@ import type { Requester, TaskFormValues } from "@/types/types";
 export default async function requester(method:string,url:string,data?:TaskFormValues) {
     const options:Requester = {};
 
-    if(method === 'GET'){
+    if(method !== 'GET'){
         options.method = method
     }
 
