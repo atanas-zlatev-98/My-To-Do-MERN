@@ -13,7 +13,7 @@ const TasksType = ({tasks}:{tasks:Task[]}) => {
     <p className='font-bold'>TYPE</p>
 
             <li className={`text-md nav-links-menu`}>
-              <NavLink className='flex flex-row items-center p-2' to={''}>
+              <NavLink className='flex flex-row items-center p-2' to={'/tasks/type/Personal'}>
                 <User className="h-5 w-5 text-red-600"/>
                 <span className='ps-1 pt-0.5 text-md'>Personal</span>
                 <span className='total-tasks'>{personalTasks}</span>
@@ -21,7 +21,7 @@ const TasksType = ({tasks}:{tasks:Task[]}) => {
             </li>
 
             <li className={`text-md nav-links-menu`}>
-              <NavLink className='flex flex-row items-center p-2' to={''}>
+              <NavLink className='flex flex-row items-center p-2' to={'/tasks/type/Work'}>
                 <FolderKanban className="h-5 w-5 text-orange-600"/>
                 <span className='ps-1 pt-0.5 text-md'>Work</span>
                 <span className='total-tasks'>{workTasks}</span>
@@ -29,7 +29,7 @@ const TasksType = ({tasks}:{tasks:Task[]}) => {
             </li>
 
             <li className={`text-md nav-links-menu`}>
-              <NavLink className='flex flex-row items-center p-2' to={''}>
+              <NavLink className='flex flex-row items-center p-2' to={'/tasks/type/Hobby'}>
                 <Car className="h-5 w-5 text-yellow-600"/>
                 <span className='ps-1 pt-0.5 text-md'>Hobby</span>
                 <span className='total-tasks'>{hobbyTasks}</span>
