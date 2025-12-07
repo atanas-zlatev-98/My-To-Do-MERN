@@ -1,5 +1,5 @@
 import './Sections.style.css';
-import { Input } from '../ui/input';
+// import { Input } from '../ui/input';
 import { useTasks } from '@/hooks/useTasks';
 import Tasks from './menu-sections/Tasks';
 import TasksType from './menu-sections/TasksType';
@@ -12,9 +12,9 @@ const Sections = () => {
       {loading && ( <div className='main-sections'>
         <div className="sections-group p-3 pt-0">
 
-          <div className='search-field mb-2'>
+          {/* <div className='search-field mb-2'>
             <Input type="text" placeholder="Search" />
-          </div>
+          </div> */}
 
            <ul className="flex flex-col gap-2">
             
