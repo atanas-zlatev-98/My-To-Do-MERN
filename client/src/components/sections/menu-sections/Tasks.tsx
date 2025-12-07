@@ -15,7 +15,7 @@ const Tasks = ({tasks}:{tasks:Task[]}) => {
          <p className='font-bold'>TASKS</p>
             
             <li className={`text-md nav-links-menu`}>
-              <NavLink className='flex flex-row items-center p-2' to={'/upcoming'}>
+              <NavLink className='flex flex-row items-center p-2' to={'/tasks/Upcoming'}>
                 <ChevronsRight className="h-5 w-5"/>
                 <span className='ps-1 pt-0.5 text-md'>Upcoming</span>
                 <span className='total-tasks'>{upcomingTasks}</span>
@@ -23,7 +23,7 @@ const Tasks = ({tasks}:{tasks:Task[]}) => {
             </li>
 
             <li className={`text-md nav-links-menu`}>
-              <NavLink className='flex flex-row items-center p-2' to={'/'}>
+              <NavLink className='flex flex-row items-center p-2' to={'/tasks/Today'}>
                 <List className="h-5 w-5"/>
                 <span className='ps-1 pt-0.5 text-md'>Today</span>
                 <span className='total-tasks'>{todayTasks}</span>
@@ -31,7 +31,7 @@ const Tasks = ({tasks}:{tasks:Task[]}) => {
             </li>
 
             <li className={`text-md nav-links-menu`}>
-              <NavLink className='flex flex-row items-center p-2' to={'/forgotten'}>
+              <NavLink className='flex flex-row items-center p-2' to={'/tasks/Forgotten'}>
                 <ChevronsLeft className="h-5 w-5"/>
                 <span className='ps-1 pt-0.5 text-md'>Forgotten</span>
                 <span className='total-tasks'>{forgottenTasks}</span>
@@ -39,7 +39,7 @@ const Tasks = ({tasks}:{tasks:Task[]}) => {
             </li>
 
             <li className={`text-md nav-links-menu`}>
-              <NavLink className='flex flex-row items-center p-2' to={'/completed'}>
+              <NavLink className='flex flex-row items-center p-2' to={'/tasks/Completed'}>
                 <CheckCheck className="h-5 w-5"/>
                 <span className='ps-1 pt-0.5 text-md'>Completed</span>
                 <span className='total-tasks'>{completedTasks}</span>
