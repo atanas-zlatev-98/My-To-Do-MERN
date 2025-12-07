@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Popover,PopoverContent,PopoverTrigger} from "@/components/ui/popover";
 import { Select,SelectContent,SelectItem,SelectTrigger,SelectValue} from "@/components/ui/select";
+import { useTasks } from "@/hooks/useTasks";
 import type { TaskFormValues } from "@/types/types";
 import { ChevronDownIcon } from "lucide-react";
 import React, { useState } from "react";
@@ -17,10 +18,10 @@ const CreateTaskForm = () => {
   const [open,setOpen] = useState(false);
   const [date,setDate] = useState<Date | undefined>(undefined);
   const [formValues,setFormValues] = useState<TaskFormValues>(initialTaskValues);
+  const {fetchTasks} = useTasks();
 
   const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-
         try{ 
           
           const response = await createTask(formValues);
@@ -28,12 +29,12 @@ const CreateTaskForm = () => {
           if(response){
             setFormValues(initialTaskValues);
             setDate(undefined);
+            fetchTasks();
           }
 
         }catch(err){
           console.log(err);
         }
-
   };
 
   const handleChange = (name: keyof TaskFormValues,value:string | Date | undefined) =>{

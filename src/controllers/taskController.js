@@ -1,5 +1,5 @@
 const {Router} = require('express');
-const { createTask } = require('../services/taskService');
+const { createTask, getTasks } = require('../services/taskService');
 
 const taskController = Router();
 
@@ -25,6 +25,20 @@ taskController.post('/tasks/add-task', async(req,res)=>{
         res.status(400).json({message:err.message})
     }
     
+})
+
+taskController.get(`/tasks`,async(req,res)=>{
+
+    try{
+        const response = await getTasks();
+
+        if(response) {
+            res.status(200).json(response);
+        }
+
+    }catch(err){
+        res.status(400).json({message:err.message})
+    }
 })
 
 

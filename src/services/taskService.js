@@ -15,6 +15,16 @@ async function createTask(task) {
     return newTask
 }
 
+async function getTasks() {
+    const tasks = await TaskModel.find();
+
+    if(!tasks || tasks.lenght <=0){
+        throw new Error('No Tasks Found!')
+    }
+
+    return tasks
+}
+
 module.exports = {
-    createTask
+    createTask,getTasks
 }
