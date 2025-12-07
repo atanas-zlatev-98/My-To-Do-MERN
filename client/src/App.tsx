@@ -11,7 +11,7 @@ function App() {
       <Layout>
         <Routes>
           {/* <Route path="/" element={<MainPage/>}></Route> */}
-          <Route path="/today" element={<Today />}></Route>
+          <Route path="/" element={<Today />}></Route>
         </Routes>
       </Layout>
       </TasksProvider>
