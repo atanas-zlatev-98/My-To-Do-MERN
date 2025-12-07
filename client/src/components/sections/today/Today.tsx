@@ -5,8 +5,7 @@ import { useTasks } from '@/hooks/useTasks'
 const Today = () => {
 
   const {tasks,loading} = useTasks();
-
-   const tasksForToday = tasks.filter(tasks => tasks.finishBefore.split('T')[0] === currentDate);
+  const tasksForToday = tasks.filter(tasks => tasks.finishBefore.split('T')[0] === currentDate && tasks.isCompleted !== true);
 
   return (
     <>
