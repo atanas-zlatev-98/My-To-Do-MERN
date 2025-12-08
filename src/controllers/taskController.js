@@ -1,5 +1,5 @@
 const {Router} = require('express');
-const { createTask, getTasks } = require('../services/taskService');
+const { createTask, getTasks, getSingleTask } = require('../services/taskService');
 
 const taskController = Router();
 
@@ -41,6 +41,18 @@ taskController.get(`/tasks`,async(req,res)=>{
     }
 })
 
+taskController.get(`/task/:taskId`,async (req,res)=>{
+    const taskId = req.params.taskId;
+
+    try{
+        const response = await getSingleTask(taskId);
+        if(response){
+            res.status(200).json(response)
+        }
+    }catch(err){
+        res.status(400).json({message:err.message})
+    }
+})
 
 module.exports = {
     taskController

@@ -5,7 +5,7 @@ import { NavLink } from 'react-router'
 
 const TaskListItem = ({task}:{task:Task}) => {
   return (
-     <NavLink to={''}>
+     <NavLink to={`/task/${task._id}`}>
         <Card className="max-w-md pt-5">
       <CardHeader>
         <CardTitle className="truncate">{task.title}</CardTitle>

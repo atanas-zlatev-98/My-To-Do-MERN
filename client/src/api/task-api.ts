@@ -12,3 +12,8 @@ export const getTasks = async()=>{
     const result = await get(`${baseUrl}/tasks`);
     return result
 }
+
+export const getSingleTask = async (taskId:string) =>{
+    const result = await get(`${baseUrl}/task/${taskId}`);
+    return result
+}

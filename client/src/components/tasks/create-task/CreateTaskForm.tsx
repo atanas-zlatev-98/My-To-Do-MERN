@@ -58,6 +58,8 @@ const CreateTaskForm = () => {
     handleChange(e.target.name as keyof TaskFormValues,e.target.value);
   }
 
+ const isFormEmpty = !formValues.title || !formValues.description || !formValues.finishBefore || !formValues.type || !formValues.priorityLevel;
+
   return (
     <Dialog>
 
@@ -68,7 +70,7 @@ const CreateTaskForm = () => {
 
         <form onSubmit={submitHandler}>
 
-          <DialogHeader>
+          <DialogHeader className="gap-0 mb-3">
             <DialogTitle>Create Task.</DialogTitle>
             <DialogDescription>
               Make sure you filled out all the fields.
@@ -144,7 +146,7 @@ const CreateTaskForm = () => {
           </div>
             <div className="flex justify-end">
           <DialogClose asChild>
-            <Button type="submit">Create Task</Button>
+            <Button type="submit" disabled={isFormEmpty}>Create Task</Button>
           </DialogClose>
           </div>
             </form>
