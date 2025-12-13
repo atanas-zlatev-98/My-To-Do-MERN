@@ -1,4 +1,4 @@
-import { completeTask, getSingleTask } from "@/api/task-api";
+import { completeTask, getSingleTask, removeTask } from "@/api/task-api";
 import type { Task } from "@/types/types";
 import { useEffect, useState } from "react";
 
@@ -31,3 +31,8 @@ export const handleComplete = async (taskId: string) => {
     const response = await completeTask(taskId);
     return response
 };
+
+export const handleDelete = async(taskId:string) =>{
+    const response = await removeTask(taskId);
+    return response
+}

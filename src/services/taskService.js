@@ -47,6 +47,15 @@ async function completeTask(taskId) {
     return task
 }
 
+async function removeTask(taskId) {
+    const deletedTask = await TaskModel.findByIdAndDelete(taskId);
+    
+    if(!deletedTask){
+        throw new Error('Task Not Found!')
+    }
+
+    return deletedTask;
+}
 module.exports = {
-    createTask,getTasks,getSingleTask,completeTask
+    createTask,getTasks,getSingleTask,completeTask,removeTask
 }

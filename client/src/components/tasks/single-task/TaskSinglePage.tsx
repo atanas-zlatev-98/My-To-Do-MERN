@@ -1,5 +1,5 @@
-import { handleComplete, useSingleTask } from '@/hooks/useSingleTask';
-import { useParams } from 'react-router'
+import { handleComplete, handleDelete, useSingleTask } from '@/hooks/useSingleTask';
+import { useNavigate, useParams } from 'react-router'
 import './TaskSinglePage.style.css';
 import { Button } from '@/components/ui/button';
 import { useTasks } from '@/hooks/useTasks';
@@ -9,11 +9,18 @@ const TaskSinglePage = () => {
     const {taskId} = useParams();
     const {singleTask,loaded,setSingleTask} = useSingleTask(taskId!);
     const {fetchTasks} = useTasks();
-
+    const navigate = useNavigate();
+    
     const handleCompleteBtn = async (taskId:string) =>{
         const response = await handleComplete(taskId);
         setSingleTask(response);
         fetchTasks();
+    }
+
+    const handleDeleteBtn = async (taskId:string) =>{
+        await handleDelete(taskId);
+        fetchTasks();
+        navigate('/')
     }
     
   return (
@@ -38,7 +45,7 @@ const TaskSinglePage = () => {
             </div>
              <div className='flex gap-2 p-3 justify-center'>
                 {singleTask?.isCompleted ? (null) : (<Button variant='secondary' className='bg-green-500 cursor-pointer'>Edit</Button>)}
-                <Button variant='destructive' className='cursor-pointer bg-red-500'>Remove</Button>
+                <Button variant='destructive' className='cursor-pointer bg-red-500' onClick={()=>handleDeleteBtn(taskId!)}>Remove</Button>
             </div>
         </div>
     </div>): <h1>Post Not Found!</h1>}

@@ -1,5 +1,5 @@
 import type {TaskFormValues } from "@/types/types";
-import { post,get, patch } from "./requester";
+import { post,get, patch, del } from "./requester";
 
 const baseUrl = 'http://localhost:3000';
 
@@ -20,5 +20,10 @@ export const getSingleTask = async (taskId:string) =>{
 
 export const completeTask = async (taskId:string) =>{
     const result = await patch(`${baseUrl}/task/${taskId}`);
+    return result;
+}
+
+export const removeTask = async(taskId:string) =>{
+    const result = await del(`${baseUrl}/task/${taskId}`);
     return result;
 }
