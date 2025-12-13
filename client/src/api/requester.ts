@@ -33,3 +33,4 @@ export const get = (url:string)=>requester('GET',url);
 export const post = (url:string,data:TaskFormValues)=>requester('POST',url,data);
 export const del = (url:string) =>requester('DELETE',url);
 export const update = (url:string,data:TaskFormValues)=>requester('PUT',url,data);
+export const patch = (url:string)=>requester('PATCH',url);

@@ -1,11 +1,19 @@
-import { useSingleTask } from '@/hooks/useSingleTask';
+import { handleComplete, useSingleTask } from '@/hooks/useSingleTask';
 import { useParams } from 'react-router'
 import './TaskSinglePage.style.css';
 import { Button } from '@/components/ui/button';
+import { useTasks } from '@/hooks/useTasks';
 
 const TaskSinglePage = () => {
     const {taskId} = useParams();
-    const {singleTask,loaded} = useSingleTask(taskId!);
+    const {singleTask,loaded,setSingleTask} = useSingleTask(taskId!);
+    const {fetchTasks} = useTasks();
+
+    const handleCompleteBtn = async (taskId:string) =>{
+        const response = await handleComplete(taskId);
+        setSingleTask(response);
+        fetchTasks();
+    }
     
   return (
     <>
@@ -17,7 +25,7 @@ const TaskSinglePage = () => {
             <p>{singleTask?.description}</p>
             </div>
             <div className='p-3 m-3 rounded-lg flex justify-end'>
-            {singleTask?.isCompleted !== true && <Button className='cursor-pointer'>Mark as Completed</Button>}</div>
+            {singleTask?.isCompleted !== true && <Button className='cursor-pointer' onClick={()=>handleCompleteBtn(taskId!)}>Mark as Completed</Button>}</div>
         </div>
         <div className='task-options m-3 rounded-lg justify-start flex flex-col bg-gray-200'>
             <h2 className='p-3 text-center font-bold'>Options</h2>

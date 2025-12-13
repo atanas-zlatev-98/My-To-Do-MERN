@@ -1,5 +1,5 @@
-import type { TaskFormValues } from "@/types/types";
-import { post,get } from "./requester";
+import type {TaskFormValues } from "@/types/types";
+import { post,get, patch } from "./requester";
 
 const baseUrl = 'http://localhost:3000';
 
@@ -16,4 +16,9 @@ export const getTasks = async()=>{
 export const getSingleTask = async (taskId:string) =>{
     const result = await get(`${baseUrl}/task/${taskId}`);
     return result
+}
+
+export const completeTask = async (taskId:string) =>{
+    const result = await patch(`${baseUrl}/task/${taskId}`);
+    return result;
 }

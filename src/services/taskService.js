@@ -35,6 +35,18 @@ async function getSingleTask(taskId) {
     return task
 }
 
+async function completeTask(taskId) {
+    const task = await TaskModel.findById(taskId);
+
+    if(!task){
+        throw new Error('No Task Found!');
+    }
+
+    task.isCompleted = true;
+    await task.save();
+    return task
+}
+
 module.exports = {
-    createTask,getTasks,getSingleTask
+    createTask,getTasks,getSingleTask,completeTask
 }

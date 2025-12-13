@@ -1,5 +1,5 @@
 const {Router} = require('express');
-const { createTask, getTasks, getSingleTask } = require('../services/taskService');
+const { createTask, getTasks, getSingleTask, completeTask } = require('../services/taskService');
 
 const taskController = Router();
 
@@ -53,7 +53,18 @@ taskController.get(`/task/:taskId`,async (req,res)=>{
         res.status(400).json({message:err.message})
     }
 })
+taskController.patch(`/task/:taskId`, async(req,res)=>{
+    const taskId = req.params.taskId;
 
+    try{
+        const response = await completeTask(taskId);
+        if(response){
+            res.status(200).json(response);
+        }
+    }catch(err){
+        res.status(400).json({message:err.message});
+    }
+})
 module.exports = {
     taskController
 }
