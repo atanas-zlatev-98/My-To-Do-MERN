@@ -1,6 +1,6 @@
 Project: MERN Stack TODO Application
 
-[Technologies]: MongoDB, Express.js, React.js, Node.js, JavaScript, HTML, CSS
+##[Technologies]: MongoDB, Express.js, React.js, Node.js, JavaScript, HTML, CSS
 
 Designed and developed a full-stack TODO application using the MERN stack with all code written independently.
 
