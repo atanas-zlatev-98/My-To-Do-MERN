@@ -6,6 +6,7 @@ import SectionType from "./components/sections/section-type/SectionType";
 import SectionPriority from "./components/sections/section-priority/SectionPriority";
 import SectionTasks from "./components/sections/section-tasks/SectionTasks";
 import TaskSinglePage from "./components/tasks/single-task/TaskSinglePage";
+import AllTasks from "./components/tasks/AllTasks";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <TasksProvider>
       <Layout>
         <Routes>
+          <Route path="/" element={<AllTasks/>}></Route>
           <Route path="/tasks/:sectionTasks" element={<SectionTasks />}></Route>
           <Route path="/tasks/type/:sectionType" element={<SectionType />}></Route>
           <Route path="/tasks/priority/:sectionPriority" element={<SectionPriority/>}></Route>
