@@ -12,4 +12,4 @@ Integrated the front-end with a Node.js and Express.js backend to handle API req
 
 Used MongoDB for storing and managing task data.
 
-[NOTE]: The project has low to none validation!!! 
+[NOTE]: The project has low to none validation!!! i was just a small project i did in my free time!!!
