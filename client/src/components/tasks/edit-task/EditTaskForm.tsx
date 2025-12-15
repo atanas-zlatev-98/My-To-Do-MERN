@@ -1,34 +1,35 @@
-import { createTask } from "@/api/task-api";
-import { initialTaskValues } from "@/components/constants/constants";
-import { Button } from "@/components/ui/button";
-import { Calendar } from "@/components/ui/calendar";
-import { Dialog, DialogClose, DialogContent,DialogDescription,DialogHeader,DialogTitle,DialogTrigger} from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Popover,PopoverContent,PopoverTrigger} from "@/components/ui/popover";
-import { Select,SelectContent,SelectItem,SelectTrigger,SelectValue} from "@/components/ui/select";
-import { useTasks } from "@/hooks/useTasks";
-import type { Task } from "@/types/types";
-import { ChevronDownIcon } from "lucide-react";
-import React, { useState } from "react";
+import {  updateTask } from '@/api/task-api';
+import { Button } from '@/components/ui/button';
+import { Calendar } from '@/components/ui/calendar';
+import { Dialog, DialogClose, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { useTasks } from '@/hooks/useTasks';
+import type {EditTaskFormValues, Task } from '@/types/types';
+import { ChevronDownIcon } from 'lucide-react';
+import React, { useState } from 'react'
 
-
-const CreateTaskForm = () => {
+const EditTaskForm = ({task,setSingleTask}:EditTaskFormValues) => {
+  
 
   const [open,setOpen] = useState(false);
-  const [date,setDate] = useState<Date | undefined>(undefined);
-  const [formValues,setFormValues] = useState<Task>(initialTaskValues);
+  const [date,setDate] = useState<Date | undefined>(task.finishBefore ? new Date(task.finishBefore) : undefined);
+  const [formValues,setFormValues] = useState<Task>(task);
   const {fetchTasks} = useTasks();
+  
+  const taskId = task._id ? task._id : '';
 
   const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try{ 
           
-          const response = await createTask(formValues);
-
+          const response = await updateTask(taskId,formValues);
           if(response){
-            setFormValues(initialTaskValues);
-            setDate(undefined);
+            setFormValues(prev => ({ ...prev, ...response }));
+            setSingleTask(response);
+            setDate(response.finishBefore);
             fetchTasks();
           }
 
@@ -60,18 +61,18 @@ const CreateTaskForm = () => {
 
  const isFormEmpty = !formValues.title || !formValues.description || !formValues.finishBefore || !formValues.type || !formValues.priorityLevel;
 
-  return (
+ return (
     <Dialog>
 
         <DialogTrigger asChild>
-          <Button className="cursor-pointer">Create Task</Button>
+          <Button className="cursor-pointer">Edit Task</Button>
         </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
 
         <form onSubmit={submitHandler}>
 
           <DialogHeader className="gap-0 mb-3">
-            <DialogTitle>Create Task.</DialogTitle>
+            <DialogTitle>Edit Task.</DialogTitle>
             <DialogDescription>
               Make sure you filled out all the fields.
             </DialogDescription>
@@ -81,19 +82,19 @@ const CreateTaskForm = () => {
 
             <div className="grid">
               <Label htmlFor="title" className="mb-2">Title.</Label>
-              <Input id="title" name="title" placeholder="Task Title..." onChange={changeHandler}/>
+              <Input id="title" name="title" placeholder="Task Title..." value={formValues.title} onChange={changeHandler}></Input>
             </div>
 
             <div className="grid">
               <Label htmlFor="description" className="mb-2">Description.</Label>
-              <Input name="description" id="description" placeholder="Task Description" onChange={changeHandler}></Input>
+              <Input name="description" id="description" placeholder="Task Description" value={formValues.description} onChange={changeHandler}></Input>
             </div>
 
             <div className="flex justify-between">
 
               <div>
                 <Label htmlFor="priotity" className="mb-2">Priority</Label>
-                <Select defaultValue="Low" onValueChange={(value)=>handleChange('priorityLevel',value)}>
+                <Select defaultValue={`${task.priorityLevel}`} onValueChange={(value)=>handleChange('priorityLevel',value)}>
                   <SelectTrigger className="w-[180px]">
                     <SelectValue placeholder="Select" />
                   </SelectTrigger>
@@ -108,7 +109,7 @@ const CreateTaskForm = () => {
 
               <div>
                 <Label htmlFor="taskType" className="mb-2">Task Type</Label>
-                <Select defaultValue="Work" onValueChange={(value)=>handleChange('type',value)}>
+                <Select defaultValue={`${task.type}`} onValueChange={(value)=>handleChange('type',value)}>
                   <SelectTrigger className="w-[180px]">
                     <SelectValue placeholder="Select" />
                   </SelectTrigger>
@@ -130,7 +131,7 @@ const CreateTaskForm = () => {
 
                 <PopoverTrigger asChild>
                   <Button variant="outline" id="date" className="w-48 justify-between font-normal">
-                     {date ? date.toLocaleDateString() : "Select date"}
+                     {date ? new Date(date).toLocaleDateString() : "Select date"}
                     <ChevronDownIcon />
                   </Button>
                 </PopoverTrigger>
@@ -146,7 +147,7 @@ const CreateTaskForm = () => {
           </div>
             <div className="flex justify-end">
           <DialogClose asChild>
-            <Button type="submit" disabled={isFormEmpty}>Create Task</Button>
+            <Button type="submit" disabled={isFormEmpty}>Edit Task</Button>
           </DialogClose>
           </div>
             </form>
@@ -155,6 +156,6 @@ const CreateTaskForm = () => {
 
     </Dialog>
   );
-};
+}
 
-export default CreateTaskForm;
+export default EditTaskForm

@@ -1,6 +1,6 @@
-import type { Requester, TaskFormValues } from "@/types/types";
+import type { Requester, Task } from "@/types/types";
 
-export default async function requester(method:string,url:string,data?:TaskFormValues) {
+export default async function requester(method:string,url:string,data?:Task) {
     const options:Requester = {};
 
     if(method !== 'GET'){
@@ -30,7 +30,7 @@ export default async function requester(method:string,url:string,data?:TaskFormV
 }
 
 export const get = (url:string)=>requester('GET',url);
-export const post = (url:string,data:TaskFormValues)=>requester('POST',url,data);
+export const post = (url:string,data:Task)=>requester('POST',url,data);
 export const del = (url:string) =>requester('DELETE',url);
-export const update = (url:string,data:TaskFormValues)=>requester('PUT',url,data);
+export const update = (url:string,data:Task)=>requester('PUT',url,data);
 export const patch = (url:string)=>requester('PATCH',url);

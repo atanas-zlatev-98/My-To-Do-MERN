@@ -4,14 +4,19 @@ import './TaskSinglePage.style.css';
 import { Button } from '@/components/ui/button';
 import { useTasks } from '@/hooks/useTasks';
 import { Badge } from '@/components/ui/badge';
+import EditTaskForm from '../edit-task/EditTaskForm';
 
 const TaskSinglePage = () => {
+
+    
     const {taskId} = useParams();
-    const {singleTask,loaded,setSingleTask} = useSingleTask(taskId!);
+
+    const {singleTask,loaded,setSingleTask} = useSingleTask(taskId ?? '');
     const {fetchTasks} = useTasks();
     const navigate = useNavigate();
-    
+
     const handleCompleteBtn = async (taskId:string) =>{
+
         const response = await handleComplete(taskId);
         setSingleTask(response);
         fetchTasks();
@@ -22,7 +27,7 @@ const TaskSinglePage = () => {
         fetchTasks();
         navigate('/')
     }
-    
+
   return (
     <>
     {loaded ? ( <div className='single-task flex flex-row justify-between'>
@@ -39,12 +44,12 @@ const TaskSinglePage = () => {
             <h2 className='p-3 text-center font-bold'>Options</h2>
             <div className='ps-3'>
                 <p><span className='font-bold'>Completed: </span><Badge variant={'secondary'} className={`text-white ${singleTask?.isCompleted ? 'bg-green-700':'bg-red-700'}`}>{singleTask?.isCompleted === true ? 'True' : 'False'}</Badge></p>
-                <p><span className='font-bold' >Finish Before:</span> {singleTask?.finishBefore.split('T')[0]}</p>
+                <p><span className='font-bold' >Finish Before:</span> {singleTask?.finishBefore ? new Date(singleTask.finishBefore).toLocaleDateString() : 'No deadline'}</p>
                 <p><span className='font-bold'>Type:</span> {singleTask?.type}</p>
                 <p><span className='font-bold'>Priority:</span> {singleTask?.priorityLevel}</p>
             </div>
              <div className='flex gap-2 p-3 justify-center'>
-                {singleTask?.isCompleted ? (null) : (<Button variant='secondary' className='bg-green-500 cursor-pointer'>Edit</Button>)}
+                {singleTask?.isCompleted && loaded ? (null) : (singleTask && (<EditTaskForm loaded={loaded} setSingleTask={setSingleTask} task={singleTask}/>))}
                 <Button variant='destructive' className='cursor-pointer bg-red-500' onClick={()=>handleDeleteBtn(taskId!)}>Remove</Button>
             </div>
         </div>

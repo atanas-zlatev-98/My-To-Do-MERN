@@ -1,20 +1,16 @@
-export type TaskFormValues = {
+export type EditTaskFormValues ={
+    task: Task,
+    setSingleTask: React.Dispatch<React.SetStateAction<Task | null>>;
+    loaded:boolean;
+}
+export type Task = {
     _id?:string,
     title:string,
     description:string,
     priorityLevel:string,
     isCompleted:boolean,
     type:string,
-    finishBefore:Date | undefined
-}
-export type Task = {
-     _id?:string,
-    title:string,
-    description:string,
-    priorityLevel:string,
-    isCompleted:boolean,
-    type:string,
-    finishBefore:string
+    finishBefore: Date | undefined
 }
 
 export type TaskContextType = {

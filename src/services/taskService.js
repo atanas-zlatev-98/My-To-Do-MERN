@@ -56,6 +56,16 @@ async function removeTask(taskId) {
 
     return deletedTask;
 }
+
+async function updateTask(taskId,task) {
+    const newTask = await TaskModel.findByIdAndUpdate(taskId,task,{new:true});
+
+    if(!newTask){
+        throw new Error('Task not updated!');
+    };
+
+    return newTask;
+}
 module.exports = {
-    createTask,getTasks,getSingleTask,completeTask,removeTask
+    createTask,getTasks,getSingleTask,completeTask,removeTask, updateTask
 }

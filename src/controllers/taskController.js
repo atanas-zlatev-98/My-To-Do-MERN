@@ -1,5 +1,5 @@
 const {Router} = require('express');
-const { createTask, getTasks, getSingleTask, completeTask, removeTask } = require('../services/taskService');
+const { createTask, getTasks, getSingleTask, completeTask, removeTask, updateTask } = require('../services/taskService');
 
 const taskController = Router();
 
@@ -76,6 +76,17 @@ taskController.delete(`/task/:taskId`,async(req,res)=>{
         }
     }catch(err){
         res.status(400).json({message:err.message})
+    }
+})
+
+taskController.put(`/task/:taskId`,async (req,res)=>{
+    const taskId = req.params.taskId;
+    const {...newTask} = req.body;
+    try{
+        const response = await updateTask(taskId,newTask)
+            res.status(200).json(response)
+    }catch(err){
+        res.status(400).json({message:err.message});
     }
 })
 module.exports = {

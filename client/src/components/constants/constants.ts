@@ -1,4 +1,6 @@
-export const initialTaskValues = {
+import type { Task } from "@/types/types";
+
+export const initialTaskValues:Task = {
     title:'',
     description:'',
     priorityLevel:'Low',
